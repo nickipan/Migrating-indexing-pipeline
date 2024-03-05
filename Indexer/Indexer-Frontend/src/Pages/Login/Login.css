@@ -1,0 +1,67 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  width: auto; 
+  height: em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 0em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 0em #61dafbaa);
+}
+
+.text{
+  font-size: 17px;
+  font-weight: 350;
+  margin-top: -30px;
+  margin-bottom: 20px;
+}
+
+.loginForm .loginButton {
+  position: relative;
+  padding: 0.6em 9.5em;
+  margin-top: 1.3em;
+  border-radius: 5px;
+  border: 1px solid transparent;
+  font-size: 0.7em;
+  font-weight: 00;
+  font-family: inherit;
+  background-color: #8a979e;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+.loginForm .loginButton:hover {
+  border-color: #646cff;
+}
+
+.loginForm .loginText{
+  font-size: 15px;
+  font-weight: 600;
+  margin-right: 11.6em;
+  margin-top: 13px;
+  margin-bottom: 10px;
+}
+
+.loginForm .loginField {
+  border-radius: 5px;
+  border: 1px solid transparent;
+  font-family: inherit;
+  background-color: #273556;
+  position: relative;
+  padding: 0.25em 6.45em 0.55em 0.5em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+

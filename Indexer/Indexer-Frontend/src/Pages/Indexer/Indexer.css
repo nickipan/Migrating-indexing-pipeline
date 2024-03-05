@@ -1,0 +1,150 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+  margin-bottom: 1em;
+}
+
+.text{
+  font-size: 18px;
+  font-weight: 350;
+  margin-top: -30px;
+  margin-bottom: 20px;
+}
+
+.search {
+  color: rgba(0, 0, 0, 0.87);
+  border-radius: 5px;
+  border: 1px solid transparent;
+  font-family: inherit;
+  background-color: #dddddd;
+  position: relative;
+  padding: 0.25em 21em 0.55em 0.5em;
+}
+
+.searchButton {
+  color: rgba(0, 0, 0, 0.87);
+  font-family: inherit;
+  background-color: rgba(255, 255, 255, 0.0);
+  position: relative;
+  left: 18em; 
+  padding: 0.2em 0.3em 0.1em 0.3em;
+  border-radius: 1000px; 
+  transform: translateY(-115%); 
+}
+
+.searchIcon {
+  font-size: 15px;
+  color: rgb(79, 82, 234);
+}
+.select {
+  background-color: rgba(255, 255, 255, 0.0);
+  padding: 8px 16px; 
+  font-size: 16px; 
+  cursor: pointer; 
+  position: relative; 
+  display: flex;
+}
+
+.select option {
+  margin: 40px;
+  background: #273556;
+  color: white;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+}
+.startButton {
+  position: absolute;
+  padding: 0.3em 1.4em;
+  margin-top: 1em;
+  border-radius: 5px;
+  border: 1px solid transparent;
+  font-size: 1em;
+  font-weight: 00;
+  font-family: inherit;
+  background-color: #5ba966;
+  cursor: pointer;
+  transition: border-color 0.25s;
+  transform: translate(135%, -585%); 
+}
+
+.refreshButton {
+  display: flex;
+  position: absolute;
+  padding: 0.3em 1.4em;
+  border-radius: 5px;
+  border: 1px solid transparent;
+  font-size: 1em;
+  font-weight: 00;
+  font-family: inherit;
+  background-color: #5ba966;
+  cursor: pointer;
+  transition: border-color 0.25s;
+  transform: translate(555%, -580%); 
+}
+
+
+.resourceText{
+  display: flex;
+  color: rgb(237, 237, 237);
+  font-size: 15px;
+  font-weight: 350;
+  transform: translate(-75%, 140%); 
+}
+
+.sourceText{
+  display: flex;
+  color: rgb(237, 237, 237);
+  font-size: 15px;
+  font-weight: 350;
+  transform: translate(7%, -400%); 
+}
+
+.periodicText{
+  display: flex;
+  color: rgb(237, 237, 237);
+  font-size: 15px;
+  font-weight: 350;
+  transform: translate(70%, -930%); 
+}
+.progressText{
+  display: flex;
+  color: rgb(237, 237, 237);
+  font-size: 15px;
+  font-weight: 350;
+  transform: translate(172%, -200%); 
+}
+
+.progressNumber{
+  display: flex;
+  color: rgb(237, 237, 237);
+  font-size: 15px;
+  font-weight: 350;
+  transform: translate(182%, -1440%); 
+}
+.source{
+  transform: translate(-5%,-160%); 
+}
+
+.resource  {
+  transform: translate(-90%,55%); 
+}
+
+.periodic {
+  transform: translate(55%,-385%); 
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}

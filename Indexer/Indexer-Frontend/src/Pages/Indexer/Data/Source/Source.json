@@ -1,0 +1,18 @@
+[
+    {
+        "value": "Documents",
+        "label": "Documents"
+    },
+    {
+        "value": "Datasets",
+        "label": "Datasets"
+    },
+    {
+        "value": "Services",
+        "label": "Services"
+    },
+    {
+        "value": "No Source Type",
+        "label": "No Source Type"
+    }
+]

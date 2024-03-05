@@ -1,0 +1,18 @@
+[
+    {
+        "value": "Not Periodic",
+        "label": "Not Periodic"
+    },
+    {
+        "value": "15 Minutes",
+        "label": "15 Minutes"
+    },
+    {
+        "value": "30 Minutes",
+        "label": "30 Minutes"
+    },
+    {
+        "value": "1 Hour",
+        "label": "1 Hour"
+    }
+]
