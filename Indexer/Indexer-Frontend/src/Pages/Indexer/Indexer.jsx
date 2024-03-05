@@ -23,40 +23,40 @@ function Indexer() {
   }
 
   function refresh() {
-    fetch('http://localhost:5000/getIndexData')
-    .then(response => response.json())
-    .then(data => {
-      setStatus(data.status),
-      setDuration(data.duration),
-      setStartTime(data.startTime),
-      setCompleted(data.completed),
-      setContent(data.content)
-    })
+    fetch('http://127.0.0.1:5000/getIndexData')
+      .then(response => response.json())
+      .then(data => {
+        setStatus(data.status),
+          setDuration(data.duration),
+          setStartTime(data.startTime),
+          setCompleted(data.completed),
+          setContent(data.content)
+      })
   }
 
-  const sendData = async() => {
-      var source = document.getElementById("source").value;
-      var resource = document.getElementById("resource").value;
-      var periodic = document.getElementById("periodic").value;
-      var isResourceTypeOnly = (source == "No Source Type") ? true : false
-      var isPeriodic = (periodic == "Not Periodic") ? false : true
+  const sendData = async () => {
+    var source = document.getElementById("source").value;
+    var resource = document.getElementById("resource").value;
+    var periodic = document.getElementById("periodic").value;
+    var isResourceTypeOnly = (source == "No Source Type") ? true : false
+    var isPeriodic = (periodic == "Not Periodic") ? false : true
 
-      const res = fetch(
-        "http://localhost:5000/sendIndexData",
-        {        
-          method: 'POST', 
-          headers: {'Content-Type': 'application/json',},
-          body: JSON.stringify(
-            {
-              sourceType: source,
-              resourceType: resource,
-              resourceTypeOnly: isResourceTypeOnly,
-              periodic: isPeriodic,
-              timePeriod: periodic
-            }
-          )
-        }
-      )
+    const res = fetch(
+      "http://127.0.0.1:5000/sendIndexData",
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', },
+        body: JSON.stringify(
+          {
+            sourceType: source,
+            resourceType: resource,
+            resourceTypeOnly: isResourceTypeOnly,
+            periodic: isPeriodic,
+            timePeriod: periodic
+          }
+        )
+      }
+    )
       .then(res => console.log(res))
   }
 
@@ -64,16 +64,16 @@ function Indexer() {
   return (
     <>
       <div>
-          <img src={logo} className="logo" alt="Vite logo" />
+        <img src={logo} className="logo" alt="Vite logo" />
       </div>
       <p className="text">
-        Choose your Source, Resource and Period. 
+        Choose your Source, Resource and Period.
       </p>
-      
+
       <p className="resourceText">
         Resource type
       </p>
-      <div className='resource'> 
+      <div className='resource'>
         <select className='select' id='resource'>
           {resource.map((o) => <option value={o.value}>{o.label}</option>)}
         </select>
@@ -82,7 +82,7 @@ function Indexer() {
       <p className="sourceText">
         Source type
       </p>
-      <div className='source'> 
+      <div className='source'>
         <select className='select' id='source'>
           {source.map((o) => <option value={o.value}>{o.label}</option>)}
         </select>
@@ -91,7 +91,7 @@ function Indexer() {
       <p className="periodicText">
         Periodic
       </p>
-      <div className='periodic'> 
+      <div className='periodic'>
         <select className='select' id='periodic'>
           {periodic.map((o) => <option value={o.value}>{o.label}</option>)}
         </select>
@@ -99,24 +99,24 @@ function Indexer() {
 
       {/* Start Button */}
       <button className="startButton" onClick={isPressed}>
-          Start Indexing
+        Start Indexing
       </button>
-      
 
-      {startPressed && 
-      <div>        
-        <button className="refreshButton" onClick={refresh}>
+
+      {startPressed &&
+        <div>
+          <button className="refreshButton" onClick={refresh}>
             Refresh
-        </button>
+          </button>
 
-        <p className="progressText">
-          Progress: {stat} % <br/> 
-          Duration: {duration} <br/> 
-          Start Time: {startTime} <br/> 
-          Completed: {completed} <br/> 
-          Content: {content} <br/> 
-        </p>
-      </div>
+          <p className="progressText">
+            Progress: {stat} % <br />
+            Duration: {duration} <br />
+            Start Time: {startTime} <br />
+            Completed: {completed} <br />
+            Content: {content} <br />
+          </p>
+        </div>
       }
     </>
   )
