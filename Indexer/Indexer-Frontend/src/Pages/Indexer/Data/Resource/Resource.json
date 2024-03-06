@@ -1,14 +1,18 @@
 [
     {
-        "value": "GitHub Repository",
-        "label": "GitHub Repository"
+        "value": "web_pages",
+        "label": "Web Pages"
     },
     {
-        "value": "Search Engine Website",
-        "label": "Search Engine Website"
+        "value": "apis",
+        "label": "APIs"
     },
     {
-        "value": "Documentations",
-        "label": "Documentations"
+        "value": "datasets",
+        "label": "Datasets"
+    },
+    {
+        "value": "notebooks",
+        "label": "Notebooks"
     }
 ]

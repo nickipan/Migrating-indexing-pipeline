@@ -89,7 +89,7 @@ function Indexer() {
       </div>
 
       <p className="periodicText">
-        Periodic
+        Period
       </p>
       <div className='periodic'>
         <select className='select' id='periodic'>
