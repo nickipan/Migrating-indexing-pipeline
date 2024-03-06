@@ -1,0 +1,14 @@
+.idea/
+.vscode/
+*.iml
+
+.DS_Store
+
+.git/
+.env
+envs/
+.tfvars
+*.tfstate
+*.tfstate.backup
+.terraform.lock.hcl
+.terraform/
