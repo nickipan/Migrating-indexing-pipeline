@@ -1,0 +1,50 @@
+{
+    "webPages": [
+        {
+            "value": "noSourceType",
+            "label": "No source type"
+        }
+    ],
+    "APIs": [
+        {
+            "value": "noSourceType",
+            "label": "No source type"
+        }
+    ],
+    "notebooks": [
+        {
+            "value": "Kaggle",
+            "label": "Kaggle"
+        },
+        {
+            "value": "GitHub",
+            "label": "GitHub"
+        }
+    ],
+    "dataSets": [
+        {
+            "value": "DiSSCo",
+            "label": "DiSSCo"
+        },
+        {
+            "value": "ICOS",
+            "label": "ICOS"
+        },
+        {
+            "value": "LifeWatch",
+            "label": "LifeWatch"
+        },
+        {
+            "value": "SeaDataNet CDI",
+            "label": "SeaDataNet CDI"
+        },
+        {
+            "value": "SeaDataNet EDMED",
+            "label": "SeaDataNet EDMED"
+        },
+        {
+            "value": "SIOS",
+            "label": "SIOS"
+        }
+    ]
+}

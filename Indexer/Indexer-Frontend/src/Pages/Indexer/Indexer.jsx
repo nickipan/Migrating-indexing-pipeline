@@ -2,6 +2,7 @@ import { useState } from 'react'
 import logo from '../../assets/Logo.png'
 import './Indexer.css'
 
+import sourceTemp from "./Data/Source/SourceTemp.json"
 import source from "./Data/Source/Source.json"
 import resource from "./Data/Resource/Resource.json"
 import periodic from "./Data/Periodic/Periodic.json"
@@ -9,6 +10,7 @@ import periodic from "./Data/Periodic/Periodic.json"
 function Indexer() {
   document.title = "KB-Indexer"
   const [startPressed, setStartPressed] = useState(false)
+  const [resourceType, setRecoureType] = useState(false);
 
   // Received data
   const [stat, setStatus] = useState('0')
@@ -21,6 +23,8 @@ function Indexer() {
     setStartPressed(true);
     sendData();
   }
+
+  // var resource = document.getElementById("resource").value;
 
   function refresh() {
     fetch('http://127.0.0.1:5000/getIndexData')
@@ -60,7 +64,6 @@ function Indexer() {
       .then(res => console.log(res))
   }
 
-
   return (
     <>
       <div>
@@ -84,7 +87,7 @@ function Indexer() {
       </p>
       <div className='source'>
         <select className='select' id='source'>
-          {source.map((o) => <option value={o.value}>{o.label}</option>)}
+          {sourceTemp.dataSets.map((o) => <option value={o.value}>{o.label}</option>)}
         </select>
       </div>
 
