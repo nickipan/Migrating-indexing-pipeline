@@ -20,6 +20,34 @@
   margin-bottom: 20px;
 }
 
+.text2 {
+  font-size: 18px;
+  font-weight: 350;
+  margin-top: -30px;
+  margin-bottom: 20px;
+  transform: translate(-108%, 200%);
+}
+
+.text3 {
+  font-size: 22px;
+  font-weight: 350;
+  margin-top: 50px;
+  margin-bottom: -10px;
+  transform: translate(-32%, 90%);
+}
+
+.deleteText {
+  font-size: 40px;
+  font-weight: 350;
+  margin-top: 20px;
+  margin-bottom: -50px;
+  transform: translate(50%, -370%);
+}
+
+.deleteIcon {
+  transform: translate(10%, 15%);
+}
+
 .select {
   color: white;
   background-color: rgba(255, 255, 255, 0.0);
@@ -50,7 +78,7 @@
   background-color: #5ba966;
   cursor: pointer;
   transition: border-color 0.25s;
-  transform: translate(135%, -592%);
+  transform: translate(-120%, 20%);
 }
 
 .refreshButton {
@@ -66,15 +94,63 @@
   background-color: #5ba966;
   cursor: pointer;
   transition: border-color 0.25s;
-  transform: translate(555%, -590%);
+  transform: translate(260%, -590%);
 }
+.deleteButton {
+  color: white;
+  display: flex;
+  position: absolute;
+  padding: 0.3em 1.4em;
+  border-radius: 5px;
+  border: 1px solid transparent;
+  font-size: 1em;
+  font-weight: 00;
+  font-family: inherit;
+  background-color: #ac4b4b;
+  cursor: pointer;
+  transition: border-color 0.25s;
+  transform: translate(600%, -610%);
+}
+
+.addNewJob {
+  color: white;
+  display: flex;
+  position: absolute;
+  padding: 0.3em 1.4em;
+  border-radius: 5px;
+  border: 1px solid transparent;
+  font-size: 1.5em;
+  font-weight: 00;
+  font-family: inherit;
+  background-color: #5ba966;
+  cursor: pointer;
+  transition: border-color 0.25s;
+  transform: translate(-240%, 50%);
+}
+
+.ongoing1 {
+  color: white;
+  display: flex;
+  position: absolute;
+  padding: 0.3em 1.4em;
+  border-radius: 5px;
+  border: 1px solid transparent;
+  font-size: 1em;
+  font-weight: 00;
+  font-family: inherit;
+  background-color: #212d49;
+  cursor: pointer;
+  transition: border-color 0.25s;
+  transform: translate(250%, -10%);
+}
+
 
 .resourceText {
   display: flex;
   color: rgb(237, 237, 237);
   font-size: 15px;
   font-weight: 350;
-  transform: translate(-52%, 140%);
+  transform: translate(-32%, 250%);
 }
 
 .sourceText {
@@ -82,7 +158,7 @@
   color: rgb(237, 237, 237);
   font-size: 15px;
   font-weight: 350;
-  transform: translate(0%, -400%);
+  transform: translate(-30%, 250%);
 }
 
 .periodicText {
@@ -90,7 +166,7 @@
   color: rgb(237, 237, 237);
   font-size: 15px;
   font-weight: 350;
-  transform: translate(80%, -930%);
+  transform: translate(-20%, 270%);
 }
 
 .progressText {
@@ -98,7 +174,8 @@
   color: rgb(237, 237, 237);
   font-size: 15px;
   font-weight: 350;
-  transform: translate(167%, -200%);
+  transform: translate(99%, -250%);
+  margin-bottom: -7em;
 }
 
 .progressNumber {
@@ -111,17 +188,14 @@
 
 .source {
   color: white;
-  transform: translate(-5%, -160%);
 }
 
 .resource {
   color: white;
-  transform: translate(-60%, 60%);
 }
 
 .periodic {
   color: white;
-  transform: translate(62%, -385%);
 }
 
 .card {

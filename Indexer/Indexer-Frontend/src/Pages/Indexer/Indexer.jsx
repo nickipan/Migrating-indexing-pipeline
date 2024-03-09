@@ -1,67 +1,23 @@
 import { useState } from 'react'
 import logo from '../../assets/Logo.png'
-import './Indexer.css'
+import { useNavigate } from 'react-router-dom';
 
-import sourceTemp from "./Data/Source/SourceTemp.json"
-import source from "./Data/Source/Source.json"
-import resource from "./Data/Resource/Resource.json"
-import periodic from "./Data/Periodic/Periodic.json"
+import './Indexer.css'
+import IndexerComponent from './IndexerComponent'
+import { FaPlusCircle } from "react-icons/fa";
+
 
 function Indexer() {
   document.title = "KB-Indexer"
-  const [startPressed, setStartPressed] = useState(false)
-  const [resourceType, setRecoureType] = useState(false);
+  const [components, setComponents] = useState([<IndexerComponent/>]);
+  const [instanceNumber, setInstanceNumber] = useState(1);
 
-  // Received data
-  const [stat, setStatus] = useState('0')
-  const [duration, setDuration] = useState('0 Min')
-  const [startTime, setStartTime] = useState('-')
-  const [completed, setCompleted] = useState('No')
-  const [content, setContent] = useState('-')
+  let navigate = useNavigate();
 
-  function isPressed() {
-    setStartPressed(true);
-    sendData();
-  }
-
-  // var resource = document.getElementById("resource").value;
-
-  function refresh() {
-    fetch('http://127.0.0.1:5000/getIndexData')
-      .then(response => response.json())
-      .then(data => {
-        setStatus(data.status),
-          setDuration(data.duration),
-          setStartTime(data.startTime),
-          setCompleted(data.completed),
-          setContent(data.content)
-      })
-  }
-
-  const sendData = async () => {
-    var source = document.getElementById("source").value;
-    var resource = document.getElementById("resource").value;
-    var periodic = document.getElementById("periodic").value;
-    var isResourceTypeOnly = (source == "No Source Type") ? true : false
-    var isPeriodic = (periodic == "Not Periodic") ? false : true
-
-    const res = fetch(
-      "http://127.0.0.1:5000/sendIndexData",
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', },
-        body: JSON.stringify(
-          {
-            sourceType: source,
-            resourceType: resource,
-            resourceTypeOnly: isResourceTypeOnly,
-            periodic: isPeriodic,
-            timePeriod: periodic
-          }
-        )
-      }
-    )
-      .then(res => console.log(res))
+  function addJob() {
+    var number = instanceNumber -1
+    setComponents([<IndexerComponent/>, components])
+    setInstanceNumber(number)
   }
 
   return (
@@ -72,55 +28,18 @@ function Indexer() {
       <p className="text">
         Choose your Source, Resource and Period.
       </p>
-
-      <p className="resourceText">
-        Resource type
+      <p className="text2">
+        Add new jobs
       </p>
-      <div className='resource'>
-        <select className='select' id='resource'>
-          {resource.map((o) => <option value={o.value}>{o.label}</option>)}
-        </select>
-      </div>
-
-      <p className="sourceText">
-        Source type
-      </p>
-      <div className='source'>
-        <select className='select' id='source'>
-          {sourceTemp.dataSets.map((o) => <option value={o.value}>{o.label}</option>)}
-        </select>
-      </div>
-
-      <p className="periodicText">
-        Period
-      </p>
-      <div className='periodic'>
-        <select className='select' id='periodic'>
-          {periodic.map((o) => <option value={o.value}>{o.label}</option>)}
-        </select>
-      </div>
-
-      {/* Start Button */}
-      <button className="startButton" onClick={isPressed}>
-        Start Indexing
+      
+      <button className="ongoing1" onClick={() => navigate("ongoing")}>
+        Ongoing jobs
       </button>
 
-
-      {startPressed &&
-        <div>
-          <button className="refreshButton" onClick={refresh}>
-            Refresh
-          </button>
-
-          <p className="progressText">
-            Progress: {stat} % <br />
-            Duration: {duration} <br />
-            Start Time: {startTime} <br />
-            Completed: {completed} <br />
-            Content: {content} <br />
-          </p>
-        </div>
-      }
+      <button className="addNewJob" onClick={addJob}>
+        <FaPlusCircle />
+      </button>
+      {components}
     </>
   )
 }

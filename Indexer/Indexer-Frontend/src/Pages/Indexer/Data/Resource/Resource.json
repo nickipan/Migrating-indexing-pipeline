@@ -1,18 +1,18 @@
 [
     {
-        "value": "webPages",
+        "value": "web",
         "label": "Web Pages"
     },
     {
-        "value": "apis",
+        "value": "api",
         "label": "APIs"
     },
     {
-        "value": "datasets",
+        "value": "dataset",
         "label": "Datasets"
     },
     {
-        "value": "notebooks",
+        "value": "notebook",
         "label": "Notebooks"
     }
 ]

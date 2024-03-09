@@ -1,18 +1,14 @@
 [
     {
-        "value": "Not Periodic",
-        "label": "Not Periodic"
+        "value": "daily",
+        "label": "Daily"
     },
     {
-        "value": "15 Minutes",
-        "label": "15 Minutes"
+        "value": "weekly",
+        "label": "Weekly"
     },
     {
-        "value": "30 Minutes",
-        "label": "30 Minutes"
-    },
-    {
-        "value": "1 Hour",
-        "label": "1 Hour"
+        "value": "monthly",
+        "label": "Monthly"
     }
 ]
