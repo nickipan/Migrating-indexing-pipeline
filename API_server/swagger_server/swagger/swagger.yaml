@@ -1,0 +1,226 @@
+openapi: 3.0.0
+info:
+  title: Indexing API
+  description: This is an indexing API
+  contact:
+    email: you@your-company.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: https://virtserver.swaggerhub.com/indexer/1.0.0
+  description: SwaggerHub API Auto Mocking
+tags:
+- name: admins
+  description: Secured Admin-only calls
+- name: developers
+  description: Operations available to regular developers
+paths:
+  /jobs:
+    get:
+      summary: Get indexing jobs
+      description: Get list of running jobs
+      operationId: get_jobs
+      responses:
+        "200":
+          description: Successfully retrieved jobs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Status'
+                x-content-type: application/json
+      x-openapi-router-controller: swagger_server.controllers.default_controller
+    post:
+      summary: Run indexing command
+      description: Start indexing job with given parameters
+      operationId: start_job
+      requestBody:
+        description: Job to start
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Job'
+      responses:
+        "200":
+          description: Job started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        "400":
+          description: "Invalid input, object invalid"
+      x-openapi-router-controller: swagger_server.controllers.default_controller
+  /job/{name}:
+    put:
+      summary: Update indexing job
+      description: Update job with given name
+      operationId: update_job
+      parameters:
+      - name: name
+        in: path
+        description: the job name
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        description: Job update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Job'
+      responses:
+        "200":
+          description: Updated job
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+      x-openapi-router-controller: swagger_server.controllers.default_controller
+  /job/{name}/{periodic}:
+    get:
+      summary: Get indexing job status
+      description: Get the status of the job of the given name
+      operationId: get_job_status
+      parameters:
+      - name: name
+        in: path
+        description: the job name
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: periodic
+        in: path
+        description: if the job repeats
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: boolean
+      responses:
+        "200":
+          description: Successfully retrieved status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        "400":
+          description: Invalid name
+        "404":
+          description: Job not found
+      x-openapi-router-controller: swagger_server.controllers.default_controller
+    delete:
+      summary: Stop indexing command
+      description: Delete indexing job with given name
+      operationId: stop_job
+      parameters:
+      - name: name
+        in: path
+        description: the job name
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: periodic
+        in: path
+        description: if job repeats
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: boolean
+      responses:
+        "200":
+          description: Job stopped
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        "400":
+          description: Invalied name
+        "404":
+          description: Job not found
+      x-openapi-router-controller: swagger_server.controllers.default_controller
+components:
+  schemas:
+    Job:
+      required:
+      - name
+      - periodic
+      - resourceType
+      - resourceTypeOnly
+      type: object
+      properties:
+        name:
+          type: string
+          example: Api-Pipeline-Job
+        sourceType:
+          type: string
+          example: ICOS
+        resourceType:
+          type: string
+          example: api
+        resourceTypeOnly:
+          type: boolean
+          example: true
+        periodic:
+          type: boolean
+          example: true
+        timePeriod:
+          type: string
+          example: daily
+    Status:
+      required:
+      - active
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+          example: Api-Pipeline-Job
+        active:
+          type: integer
+          format: int32
+          example: 1
+        failed:
+          type: integer
+          format: int32
+          example: 1
+        succeeded:
+          type: integer
+          format: int32
+          example: 1
+        terminating:
+          type: integer
+          format: int32
+          example: 1
+        completed:
+          type: boolean
+          example: true
+        startTime:
+          type: string
+          example: starting time
+        completionTime:
+          type: string
+          example: completion time
+        lastSuccessfulTime:
+          type: string
+          example: last successful time
+      example:
+        completionTime: completion time
+        name: Api-Pipeline-Job
+        active: 1
+        lastSuccessfulTime: last successful time
+        terminating: 1
+        startTime: starting time
+        failed: 1
+        completed: true
+        succeeded: 1
+

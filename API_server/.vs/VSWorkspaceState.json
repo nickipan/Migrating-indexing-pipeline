@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\swagger_server",
+    "\\swagger_server\\controllers",
+    "\\swagger_server\\service",
+    "\\swagger_server\\swagger",
+    "\\swagger_server\\utils"
+  ],
+  "SelectedNode": "\\swagger_server\\service\\indexer_service.py",
+  "PreviewInSolutionExplorer": false
+}
