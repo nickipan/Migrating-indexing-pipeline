@@ -106,9 +106,8 @@ function IndexerComponent() {
     var isResourceTypeOnly = (source == "No Source Type") ? true : false
     var isPeriodic = (periodic == "Not Periodic") ? false : true
     var date = new Date().toISOString();
-
     setUserId(date)
-    setVisibleButton(false)
+
     const res = fetch(
       "http://localhost:5000/sendIndexData",
       {
