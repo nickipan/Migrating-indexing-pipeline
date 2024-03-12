@@ -1,0 +1,142 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "kms-generic-helm-charts.fullname" . }}
+  labels:
+    {{- include "kms-generic-helm-charts.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.kms_generic.autoscaling.enabled }}
+  replicas: {{ .Values.kms_generic.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "kms-generic-helm-charts.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.kms_generic.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "kms-generic-helm-charts.selectorLabels" . | nindent 8 }}
+        {{- with .Values.kms_generic.podLabels }}
+        {{ toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- with .Values.kms_generic.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "kms-generic-helm-charts.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.kms_generic.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.kms_generic.securityContext | nindent 12 }}
+          image: "{{ .Values.kms_generic.image.repository }}:{{ .Values.kms_generic.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.kms_generic.image.pullPolicy }}
+          env:
+            - name: ELASTICSEARCH_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "kms-generic-helm-charts.fullname" . }}-config
+                  key: ELASTICSEARCH_URL
+            - name:  ACCESS_TOKEN_Github
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "kms-generic-helm-charts.fullname" . }}-config
+                  key: GITHUB_API_TOKEN
+            - name: ACCESS_TOKEN_Gitlab
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "kms-generic-helm-charts.fullname" . }}-config
+                  key: ACCESS_TOKEN_Gitlab
+            - name: ELASTICSEARCH_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "kms-generic-helm-charts.fullname" . }}-config
+                  key: ELASTICSEARCH_PASSWORD
+            - name: ELASTICSEARCH_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "kms-generic-helm-charts.fullname" . }}-config
+                  key: ELASTICSEARCH_USERNAME
+            - name: GITHUB_QUERY_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "kms-generic-helm-charts.fullname" . }}-config
+                  key: GITHUB_QUERY_URL
+            - name: KMS_ADMIN_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "kms-generic-helm-charts.fullname" . }}-config
+                  key: KMS_ADMIN_USERNAME
+            - name: KMS_ADMIN_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "kms-generic-helm-charts.fullname" . }}-config
+                  key: KMS_ADMIN_PASSWORD
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "kms-generic-helm-charts.fullname" . }}-config
+                  key: POSTGRES_DB
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "kms-generic-helm-charts.fullname" . }}-config
+                  key: POSTGRES_PASSWORD
+            - name: BASE_PATH
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "kms-generic-helm-charts.fullname" . }}-config
+                  key: BASE_PATH
+            - name: DEBUG
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "kms-generic-helm-charts.fullname" . }}-config
+                  key: DEBUG
+            - name: SECRET_KEY
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "kms-generic-helm-charts.fullname" . }}-config
+                  key: SECRET_KEY
+            - name: ALLOWED_HOSTS
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "kms-generic-helm-charts.fullname" . }}-config
+                  key: ALLOWED_HOSTS
+            - name: CSRF_TRUSTED_ORIGINS
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "kms-generic-helm-charts.fullname" . }}-config
+                  key: CSRF_TRUSTED_ORIGINS
+          ports:
+            - name: http
+              containerPort: 8000
+              protocol: TCP
+          livenessProbe:
+            initialDelaySeconds: 20
+            httpGet:
+              path: /{{ .Values.kms_generic.base_path }}
+              port: http
+          readinessProbe:
+            initialDelaySeconds: 20
+            httpGet:
+              path: /{{ .Values.kms_generic.base_path }}
+              port: http
+          resources:
+            {{- toYaml .Values.kms_generic.resources | nindent 12 }}
+      {{- with .Values.kms_generic.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.kms_generic.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.kms_generic.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

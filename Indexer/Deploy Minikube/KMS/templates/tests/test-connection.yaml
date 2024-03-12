@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "kms-generic-helm-charts.fullname" . }}-test-connection"
+  labels:
+    {{- include "kms-generic-helm-charts.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "kms-generic-helm-charts.fullname" . }}:{{ .Values.kms_generic.service.port }}']
+  restartPolicy: Never

@@ -14,15 +14,15 @@ function IndexerComponent() {
   const [sourceTypes, setSourceTypes] = useState(source.web)
   const [userId, setUserId] = useState('')
   const [notDeleted, setnotDeleted] = useState(true)
-
+  const [period, setPeriod] = useState(false)
   const resourceRef = useRef(null);
 
   // Received data
-  const [stat, setStatus] = useState('0')
-  const [duration, setDuration] = useState('0 Min')
-  const [startTime, setStartTime] = useState('-')
-  const [completed, setCompleted] = useState('No')
-  const [content, setContent] = useState('-')
+  // const [stat, setStatus] = useState('0')
+  // const [duration, setDuration] = useState('0 Min')
+  // const [startTime, setStartTime] = useState('-')
+  // const [completed, setCompleted] = useState('No')
+  // const [content, setContent] = useState('-')
 
   function isPressed() {
     setStartPressed(true);
@@ -58,7 +58,7 @@ function IndexerComponent() {
   // Refresh API call
   function refresh() {
     fetch(
-      "http://localhost:5000/getIndexData1",
+      "http://localhost:8080/" + userId + "/" + period,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', },
@@ -71,20 +71,16 @@ function IndexerComponent() {
       }
     )
 
-    fetch('http://localhost:5000/getIndexData2')
+    fetch('http://localhost:8080/indexer/1.0.0/jobs/')
       .then(response => response.json())
       .then(data => {
-        setStatus(data.status),
-        setDuration(data.duration),
-        setStartTime(data.startTime),
-        setCompleted(data.completed),
-        setContent(data.content)
+        console.log(data);
     })
   }
 
     // Delete instance
     function deleteData() {
-      fetch("http://localhost:5000/deleteData",
+      fetch("http://localhost:8080/"+ userId + "/" + period,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', },
@@ -106,20 +102,22 @@ function IndexerComponent() {
     var isResourceTypeOnly = (source == "No Source Type") ? true : false
     var isPeriodic = (periodic == "Not Periodic") ? false : true
     var date = new Date().toISOString();
+    
     setUserId(date)
+    setPeriod(periodic)
 
     const res = fetch(
-      "http://localhost:5000/sendIndexData",
+      "http://localhost:8080/indexer/1.0.0/job/" + userId,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', },
         body: JSON.stringify(
           {
-            id: date,
-            sourceType: source,
+            name: date,
+            periodic: isPeriodic,
             resourceType: resource,
             resourceTypeOnly: isResourceTypeOnly,
-            periodic: isPeriodic,
+            sourceType: source,
             timePeriod: periodic
           }
         )

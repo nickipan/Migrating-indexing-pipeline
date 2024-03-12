@@ -1,0 +1,59 @@
+global:
+  postgresqlEnabled: false
+  elasticsearchEnabled: false
+  kibanaEnabled: false
+
+elasticsearch:
+  master:
+    resources:
+      limits:
+        cpu: .125
+  data:
+    resources:
+      limits:
+        cpu: .125
+  coordinating:
+    resources:
+      limits:
+        cpu: .125
+  ingest:
+    resources:
+      limits:
+        cpu: .125
+
+  kibana:
+    ingress:
+      enabled: true
+      className: nginx
+      path: /kibana2/
+
+
+kms_generic:
+  replicaCount: 1
+  autoscaling:
+    enabled: false
+  image:
+    repository: local/kms-generic
+    pullPolicy: Never
+  base_path: kms
+  debug: true
+  security:
+    secret_key: "<insecure_django_secret_key>"
+    allowed_hosts: "*"
+    csrf_trusted_origins: "http://127.0.0.1:8080"
+  ingress:
+    enabled: true
+    className: "nginx"
+    annotations:
+        nginx.ingress.kubernetes.io/add-base-url: "true"
+    hosts:
+      - host: localhost
+        paths:
+          - path: /
+            subPath: /kms/
+          - path: /kms(/|$)(.*)
+            pathType: ImplementationSpecific
+    tls:
+      - secretName: localhost
+        hosts:
+          - localhost
