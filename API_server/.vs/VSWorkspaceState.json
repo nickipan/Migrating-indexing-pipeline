@@ -7,6 +7,6 @@
     "\\swagger_server\\swagger",
     "\\swagger_server\\utils"
   ],
-  "SelectedNode": "\\swagger_server\\service\\indexer_service.py",
+  "SelectedNode": "\\swagger_server\\utils\\JobControl.py",
   "PreviewInSolutionExplorer": false
 }
