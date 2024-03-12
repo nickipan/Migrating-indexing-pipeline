@@ -1,0 +1,34 @@
+name: lint-helm-test-template
+
+on:
+  [push]
+
+jobs:
+  test-n-deploy:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        paths:
+          - "test-values/test-values1.yaml"
+          - "test-values/test-values2.yaml"
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: test with  ${{ matrix.paths }}
+        uses: WyriHaximus/github-action-helm3@v3
+        with:
+          exec: helm lint . -f ${{ matrix.paths }}
+
+      - uses: balchua/microk8s-actions@v0.3.0
+        with:
+          channel: '1.25/stable'
+      - name: Test ${{ matrix.paths }}
+        id: k8s
+        run: |
+          helm template kms . -f ${{ matrix.paths }}  -n kms > output.yaml
+          kubectl create ns kms
+          kubectl apply -f output.yaml -n kms 
+          sleep 150
+          kubectl get pods -n kms 
+          kubectl get pods -n kms -o=jsonpath='{.items[*].status.containerStatuses}'  | jq
+

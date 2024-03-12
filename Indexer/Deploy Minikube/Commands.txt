@@ -1,0 +1,21 @@
+minikube start --addons=ingress,ingress-dns --cpus=4 -p kms-test
+
+helm -n kms upgrade --install --create-namespace kms ./KMS/ -f ./job_service.yaml
+
+kubectl apply -f job_service.yaml
+
+kubectl apply -f ui-indexer.yaml
+
+
+Start minikube service:
+minikube service indexer-ui
+
+Port forward:
+kubectl get pods
+kubectl port-forward pod/indexer-ui-deployment-55ffd558d7-8bds2 8080:8080
+
+Docker image
+docker build -t nickipan/indexer-ui . 
+docker push nickipan/indexer-ui
+
+docker run -p 5173:5173 NICKIPAN/indexer-ui
