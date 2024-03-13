@@ -8,7 +8,7 @@ function Ongoing() {
   const [allJobs, setAllJobs] = useState('')
 
   function retrieveData() {
-      fetch('http://localhost:8080/indexer/1.0.0/jobs/')
+      fetch('http://localhost:5000/getAllJobs')
         .then(response => response.json())
         .then(data => {
           setAllJobs(JSON.stringify(data, null, 2))

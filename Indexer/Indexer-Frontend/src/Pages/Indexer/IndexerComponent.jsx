@@ -1,4 +1,4 @@
-import { useState, useRef} from 'react'
+import { useState, useRef } from 'react'
 import './Indexer.css'
 import { FaMinusCircle } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
@@ -37,19 +37,19 @@ function IndexerComponent() {
   const selectSourceType = (e) => {
     var resource = resourceRef.current.value;
 
-    if(resource == 'web') {
+    if (resource == 'web') {
       setSourceTypes(source.web);
     }
 
-    if(resource == 'api') {
+    if (resource == 'api') {
       setSourceTypes(source.web);
     }
 
-    if(resource == 'notebook') {
+    if (resource == 'notebook') {
       setSourceTypes(source.notebook);
     }
 
-    if(resource == 'dataset') {
+    if (resource == 'dataset') {
       setSourceTypes(source.dataset);
     }
   }
@@ -75,28 +75,28 @@ function IndexerComponent() {
       .then(response => response.json())
       .then(data => {
         setStatus(data.status),
-        setDuration(data.duration),
-        setStartTime(data.startTime),
-        setCompleted(data.completed),
-        setContent(data.content)
-    })
+          setDuration(data.duration),
+          setStartTime(data.startTime),
+          setCompleted(data.completed),
+          setContent(data.content)
+      })
   }
 
-    // Delete instance
-    function deleteData() {
-      fetch("http://localhost:5000/deleteData",
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', },
-          body: JSON.stringify(
-            {
-              id: userId,
-              deleted: true
-            }
-          )
-        }
-      )
-    }
+  // Delete instance
+  function deleteData() {
+    fetch("http://localhost:5000/deleteData",
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', },
+        body: JSON.stringify(
+          {
+            id: userId,
+            deleted: true
+          }
+        )
+      }
+    )
+  }
 
   // Send data API call
   const sendData = async () => {
@@ -109,7 +109,7 @@ function IndexerComponent() {
     setUserId(date)
 
     const res = fetch(
-      "http://localhost:5000/sendIndexData",
+      "http://localhost:8080/indexer/1.0.0/jobs/",
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', },
@@ -147,7 +147,7 @@ function IndexerComponent() {
       <div className='source'>
         <select className='select' id='source'>
           {
-              sourceTypes.map((o) => <option value={o.value}>{o.label}</option>)
+            sourceTypes.map((o) => <option value={o.value}>{o.label}</option>)
           }
         </select>
       </div>
@@ -164,7 +164,7 @@ function IndexerComponent() {
       {/* Start Button */}
       {
         !startPressed &&
-          <button className="startButton" onClick={isPressed}>
+        <button className="startButton" onClick={isPressed}>
           Start Indexing
         </button>
       }
@@ -188,11 +188,11 @@ function IndexerComponent() {
           </button>
         </div>
       }
-            {startPressed && !notDeleted &&
+      {startPressed && !notDeleted &&
         <div>
           <p className="deleteText">
-            <MdDelete className='deleteIcon'/>
-             Deleted
+            <MdDelete className='deleteIcon' />
+            Deleted
           </p>
         </div>
       }

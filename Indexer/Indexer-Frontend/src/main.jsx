@@ -15,12 +15,12 @@ const router = createBrowserRouter([
     errorElement: <div>404 Not Found</div>
   },
   {
-    path: '/indexer',
+    path: '/indexerui',
     element: <Indexer />,
     errorElement: <div>404 Not Found</div>
   },
   {
-    path: 'indexer/ongoing',
+    path: 'indexerui/ongoing',
     element: <Ongoing />,
     errorElement: <div>404 Not Found</div>
   },
@@ -28,6 +28,6 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router}/>
+    <RouterProvider router={router} />
   </React.StrictMode>,
 )

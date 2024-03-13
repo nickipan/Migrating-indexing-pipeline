@@ -3,8 +3,6 @@
 import connexion
 
 from swagger_server import encoder
-# from connexion.middleware import MiddlewarePosition
-# from starlette.middleware.cors import CORSMiddleware
 from flask_cors import CORS
 from connexion.resolver import RestyResolver
 
@@ -12,11 +10,9 @@ from connexion.resolver import RestyResolver
 def main():
     app = connexion.App(__name__, specification_dir='./swagger/')
 
-    cors = CORS(app.app)
-
     app.app.json_encoder = encoder.JSONEncoder
-    app.add_api('swagger.yaml', resolver=RestyResolver('seaiceservices.api'), arguments={'title': 'Indexing API'}, pythonic_params=True)
-
+    app.add_api('swagger.yaml', arguments={'title': 'Indexing API'}, pythonic_params=True)
+    cors = CORS(app)
     app.run(port=8080)
 
 

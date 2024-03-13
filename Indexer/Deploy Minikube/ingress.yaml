@@ -1,0 +1,45 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  labels:
+    app.kubernetes.io/instance: kms
+  name: indexerservice
+  namespace: kms
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: kms.test
+    http:
+      paths:
+      - backend:
+          service:
+            name: index-service
+            port:
+              number: 8080
+        path: /indexer
+        pathType: Prefix
+status:
+  loadBalancer: {}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  labels:
+    app.kubernetes.io/instance: kms
+  name: indexerui
+  namespace: kms
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: kms.test
+    http:
+      paths:
+      - backend:
+          service:
+            name: indexer-ui-deployment
+            port:
+              number: 8081
+        path: /indexerui
+        pathType: Prefix
+status:
+  loadBalancer: {}
