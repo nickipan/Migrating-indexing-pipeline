@@ -7,12 +7,7 @@ function Login() {
   let navigate = useNavigate();
 
   function navigatePage() {
-    if (document.getElementById("username").value == "admin" && document.getElementById("password").value == "admin") {
-      navigate("Indexer");
-    }
-    else {
-      alert("Wrong username/password");
-    }
+    navigate("indexerui");
   }
 
   useEffect(() => {
@@ -29,16 +24,6 @@ function Login() {
 
       <div className='loginForm'>
         <form action="">
-          {/* <p className='loginText'> Username</p>
-          <div>
-            <input className='loginField' type="text" id='username'/>
-          </div>
-
-          <p className='loginText'> Password</p>
-          <div>
-            <input className='loginField' type="password" id='password'/>
-          </div> */}
-
           <button className="loginButton" onClick={navigatePage}>
             Login
           </button>
