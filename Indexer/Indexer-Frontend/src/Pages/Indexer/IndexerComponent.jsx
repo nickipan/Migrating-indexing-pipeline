@@ -102,32 +102,44 @@ function IndexerComponent() {
   const sendData = async () => {
     var source = document.getElementById("source").value;
     var resource = document.getElementById("resource").value;
-    var periodic = document.getElementById("periodic").value;
+    var periodic1 = document.getElementById("periodic").value;
     var isResourceTypeOnly = (source == "No Source Type") ? true : false
     var isPeriodic = (periodic == "Not Periodic") ? false : true
     var date = new Date().toISOString();
+    
     setUserId(date)
 
+   console.log(date)
+   console.log(isPeriodic)
+   console.log(resource)
+   console.log(isResourceTypeOnly)
+   console.log(source)
+   console.log(periodic1)
+
     const res = fetch(
-      "http://localhost:8080/indexer/1.0.0/jobs/",
+      "http://127.0.0.1:8080/indexer/1.0.0/jobs",
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', },
-        body: JSON.stringify(
+        body:JSON.stringify( 
           {
-            id: date,
-            sourceType: source,
-            resourceType: resource,
-            resourceTypeOnly: isResourceTypeOnly,
-            periodic: isPeriodic,
-            timePeriod: periodic
-          }
-        )
+            "name": date,
+            "periodic": isPeriodic,
+            "resourceType": resource,
+            "resourceTypeOnly": isResourceTypeOnly,
+            "sourceType": source,
+            "timePeriod": periodic1
+          })
       }
     )
-      .then(res => console.log(res))
+    .then(response => {
+      if (!response.ok) {
+        console.log(response)
+        throw new Error('Network response was not ok');
+      }
+      console.log(response.json())
+    })
   }
-
 
   return (
     <>
