@@ -13,14 +13,14 @@
   margin-bottom: 1em;
 }
 
-.text {
+.chooseText {
   font-size: 18px;
   font-weight: 350;
   margin-top: -30px;
   margin-bottom: 20px;
 }
 
-.text2 {
+.jobsText {
   font-size: 18px;
   font-weight: 350;
   margin-top: -30px;
@@ -28,12 +28,12 @@
   transform: translate(-118%, 200%);
 }
 
-.text3 {
+.instanceName {
   font-size: 22px;
   font-weight: 350;
-  margin-top: 50px;
+  margin-top: 55px;
   margin-bottom: -10px;
-  transform: translate(-32%, 90%);
+  transform: translate(-37%, 90%);
 }
 
 .deleteText {
@@ -109,7 +109,7 @@
   background-color: #ac4b4b;
   cursor: pointer;
   transition: border-color 0.25s;
-  transform: translate(600%, -610%);
+  transform: translate(600%, -530%);
 }
 
 .addNewJob {
@@ -141,9 +141,8 @@
   background-color: #212d49;
   cursor: pointer;
   transition: border-color 0.25s;
-  transform: translate(250%, -10%);
+  transform: translate(250%, 50%);
 }
-
 
 .resourceText {
   display: flex;
@@ -171,10 +170,11 @@
 
 .progressText {
   display: flex;
+  text-align: left;
   color: rgb(237, 237, 237);
   font-size: 15px;
   font-weight: 350;
-  transform: translate(99%, -250%);
+  transform: translate(100%, -430%);
   margin-bottom: -7em;
 }
 

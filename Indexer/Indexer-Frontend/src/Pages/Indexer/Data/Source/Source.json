@@ -2,13 +2,13 @@
     "web": [
         {
             "value": "noSourceType",
-            "label": "No source type"
+            "label": "No Source Type"
         }
     ],
     "api": [
         {
             "value": "noSourceType",
-            "label": "No source type"
+            "label": "No Source Type"
         }
     ],
     "notebook": [

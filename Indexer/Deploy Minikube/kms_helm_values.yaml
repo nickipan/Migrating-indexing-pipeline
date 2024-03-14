@@ -41,9 +41,9 @@ indexer:
     tag: "v0.8"
 
   security:
-    github_api_token: "my_github_api_token"
-    kaggle_username: "my_kaggle_username"
-    kaggle_key: "my_kaggle_api_key"
+    github_api_token: "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"
+    kaggle_username: "norasilven"
+    kaggle_key: "ac7ddd5e827b32ba94901f5f66a17094"
 
 kms_generic:
   image:

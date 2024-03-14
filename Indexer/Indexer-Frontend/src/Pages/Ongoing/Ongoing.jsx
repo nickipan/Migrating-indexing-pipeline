@@ -8,12 +8,14 @@ function Ongoing() {
   const [allJobs, setAllJobs] = useState('')
 
   function retrieveData() {
-      fetch('http://localhost:5000/getAllJobs')
-        .then(response => response.json())
-        .then(data => {
-          setAllJobs(JSON.stringify(data, null, 2))
+    fetch("http://127.0.0.1:8080/indexer/1.0.0/jobs")
+      .then(response => response.json())
+      .then(data => {
+        setAllJobs(JSON.stringify(data, null, 2))
       })
   }
+
+
 
   useEffect(() => {
       document.title = "Sign in to KB-Indexer"
@@ -30,7 +32,7 @@ function Ongoing() {
       <button className="ongoing" onClick={() => navigate(-1)}>
       Go back
       </button>
-      <pre>{allJobs}</pre>
+      <pre className='output'>{allJobs}</pre>
     </>
   )
 }

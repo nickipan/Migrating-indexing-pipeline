@@ -25,10 +25,10 @@ function Indexer() {
       <div>
         <img src={logo} className="logo" alt="Vite logo" />
       </div>
-      <p className="text">
+      <p className="chooseText">
         Choose your Source, Resource and Period.
       </p>
-      <p className="text2">
+      <p className="jobsText">
         Add new jobs
       </p>
       

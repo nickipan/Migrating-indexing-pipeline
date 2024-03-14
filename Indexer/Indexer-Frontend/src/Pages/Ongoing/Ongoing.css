@@ -23,10 +23,15 @@
 }
 
 .ongoingText {
+  text-align: left;
   font-size: 28px;
   font-weight: 550;
   margin-top: -30px;
   margin-bottom: 20px;
+}
+
+.output {
+  text-align: left;
 }
 
 .ongoing {

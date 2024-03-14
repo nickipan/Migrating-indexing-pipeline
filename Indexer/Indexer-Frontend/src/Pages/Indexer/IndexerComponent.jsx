@@ -12,17 +12,27 @@ function IndexerComponent() {
   document.title = "KB-Indexer"
   const [startPressed, setStartPressed] = useState(false)
   const [sourceTypes, setSourceTypes] = useState(source.web)
-  const [userId, setUserId] = useState('')
   const [notDeleted, setnotDeleted] = useState(true)
+  const [isPeriodic, setIsPeriodic] = useState(false)
+  const [userID, setUserID] = useState('')
+  const [status, setStatus] = useState('')
+  // ids
+
+  const sourceID = "source" + userID
+  const resourceID = "recourse" + userID
+  const periodID =  "period" + userID
 
   const resourceRef = useRef(null);
 
   // Received data
-  const [stat, setStatus] = useState('0')
-  const [duration, setDuration] = useState('0 Min')
+  const [completionTime, setCompletionTime] = useState('0 Min')
   const [startTime, setStartTime] = useState('-')
   const [completed, setCompleted] = useState('No')
-  const [content, setContent] = useState('-')
+
+  // "active": 1,
+  // "failed": 1,
+  // "succeeded": 1,
+  // "terminating": 1
 
   function isPressed() {
     setStartPressed(true);
@@ -42,7 +52,7 @@ function IndexerComponent() {
     }
 
     if (resource == 'api') {
-      setSourceTypes(source.web);
+      setSourceTypes(source.api);
     }
 
     if (resource == 'notebook') {
@@ -57,64 +67,60 @@ function IndexerComponent() {
   // API calls
   // Refresh API call
   function refresh() {
-    fetch(
-      "http://localhost:5000/getIndexData1",
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', },
-        body: JSON.stringify(
-          {
-            id: userId,
-            refresh: true
-          }
-        )
-      }
-    )
-
-    fetch('http://localhost:5000/getIndexData2')
+    const endpoint = 'http://127.0.0.1:8080/indexer/1.0.0/job/' + userID + '/' + isPeriodic
+    fetch(endpoint)
       .then(response => response.json())
       .then(data => {
-        setStatus(data.status),
-          setDuration(data.duration),
-          setStartTime(data.startTime),
-          setCompleted(data.completed),
-          setContent(data.content)
+        if (data.active == 1) {
+          setStatus("Active")
+        }
+        else if (data.succeeded == 1) {
+          setStatus("Succeeded")
+        }
+        else if (data.terminating == 1) {
+          setStatus("Terminating")
+        }
+        else {
+          setStatus("Failed")
+        }
+        console.log(data)
+        setCompletionTime(data.completionTime),
+        setStartTime(data.startTime),
+        setCompleted(JSON.stringify(data.completed))
       })
+
+      console.log(status)
   }
 
   // Delete instance
   function deleteData() {
-    fetch("http://localhost:5000/deleteData",
+    const endpoint = 'http://127.0.0.1:8080/indexer/1.0.0/job/' + userID + '/' + isPeriodic
+    fetch(endpoint,
       {
-        method: 'POST',
+        method: 'DELETE',
         headers: { 'Content-Type': 'application/json', },
         body: JSON.stringify(
           {
-            id: userId,
-            deleted: true
+            name: userID,
+            periodic: isPeriodic
           }
         )
       }
     )
+    .then(response => {console.log(response)})
   }
 
   // Send data API call
   const sendData = async () => {
-    var source = document.getElementById("source").value;
-    var resource = document.getElementById("resource").value;
-    var periodic1 = document.getElementById("periodic").value;
-    var isResourceTypeOnly = (source == "No Source Type") ? true : false
-    var isPeriodic = (periodic == "Not Periodic") ? false : true
-    var date = new Date().toISOString();
-    
-    setUserId(date)
+    var source = document.getElementById(sourceID).value;
+    var resource = document.getElementById(resourceID).value;
+    var periodic = document.getElementById(periodID).value;
+    var uID = new Date().toISOString().replace(/[-.:]/g, '').toLowerCase();
+    setUserID(uID)
 
-   console.log(date)
-   console.log(isPeriodic)
-   console.log(resource)
-   console.log(isResourceTypeOnly)
-   console.log(source)
-   console.log(periodic1)
+    var isResourceTypeOnly = (source == "noSourceType") ? true : false
+    var isPeriodic = (periodic == "once") ? false : true
+    setIsPeriodic(isPeriodic)
 
     const res = fetch(
       "http://127.0.0.1:8080/indexer/1.0.0/jobs",
@@ -123,32 +129,26 @@ function IndexerComponent() {
         headers: { 'Content-Type': 'application/json', },
         body:JSON.stringify( 
           {
-            "name": date,
+            "name": uID,
             "periodic": isPeriodic,
             "resourceType": resource,
             "resourceTypeOnly": isResourceTypeOnly,
             "sourceType": source,
-            "timePeriod": periodic1
+            "timePeriod": periodic
           })
       }
     )
-    .then(response => {
-      if (!response.ok) {
-        console.log(response)
-        throw new Error('Network response was not ok');
-      }
-      console.log(response.json())
-    })
+    .then(response => {console.log(response)})
   }
 
   return (
     <>
-      <p className="text3"> Instance {userId}</p>
+      <p className="instanceName"> Instance {userID}</p>
       <p className="resourceText">
         Resource type
       </p>
       <div className='resource' >
-        <select className='select' id='resource' ref={resourceRef} onChange={selectSourceType}>
+        <select className='select' id={resourceID} ref={resourceRef} onChange={selectSourceType}>
           {resource.map((o) => <option value={o.value}>{o.label}</option>)}
         </select>
       </div>
@@ -157,7 +157,7 @@ function IndexerComponent() {
         Source type
       </p>
       <div className='source'>
-        <select className='select' id='source'>
+        <select className='select' id={sourceID}>
           {
             sourceTypes.map((o) => <option value={o.value}>{o.label}</option>)
           }
@@ -168,11 +168,10 @@ function IndexerComponent() {
         Period
       </p>
       <div className='periodic'>
-        <select className='select' id='periodic'>
+        <select className='select' id={periodID}>
           {periodic.map((o) => <option value={o.value}>{o.label}</option>)}
         </select>
       </div>
-
       {/* Start Button */}
       {
         !startPressed &&
@@ -186,13 +185,10 @@ function IndexerComponent() {
           <button className="refreshButton" onClick={refresh}>
             Refresh
           </button>
-
           <p className="progressText">
-            Progress: {stat} % <br />
-            Duration: {duration} <br />
             Start Time: {startTime} <br />
-            Completed: {completed} <br />
-            Content: {content} <br />
+            Completion Time: {completionTime} <br />
+            Status: {status} <br />
           </p>
 
           <button className="deleteButton" onClick={deleteInstance}>

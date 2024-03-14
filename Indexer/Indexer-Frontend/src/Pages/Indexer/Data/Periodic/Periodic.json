@@ -1,4 +1,8 @@
-[
+[    
+    {
+    "value": "once",
+    "label": "Once"
+    },
     {
         "value": "daily",
         "label": "Daily"
