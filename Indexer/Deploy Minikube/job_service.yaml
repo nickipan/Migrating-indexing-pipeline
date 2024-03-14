@@ -39,7 +39,7 @@ spec:
       - env:
         - name: MONGO_URI
           value: mongodb://mongo:27017
-        image: norasilven/index_service:latest
+        image: nickipan/indexer-service:latest
         name: index-service
         imagePullPolicy: Always
         ports:
