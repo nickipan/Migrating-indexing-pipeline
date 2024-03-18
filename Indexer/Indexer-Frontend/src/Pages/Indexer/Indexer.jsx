@@ -14,13 +14,13 @@ function Indexer() {
   const [instanceNumber, setInstanceNumber] = useState(1);
   const { user, isAuthenticated } = useAuth();
   const loginWithRedirect = useLoginWithRedirect();
-  
-  // // Uncomment this to redirect to login automatically
-  // useEffect(() => {
-  //   if (!isAuthenticated) {
-  //     loginWithRedirect();
-  //   }
-  // }, [isAuthenticated, loginWithRedirect]);
+
+  // Uncomment this to redirect to login automatically
+  useEffect(() => {
+    if (!isAuthenticated) {
+      loginWithRedirect();
+    }
+  }, [isAuthenticated, loginWithRedirect]);
 
   const logout = () => {
     const baseUrl = ContextHolder.getContext().baseUrl;
@@ -33,11 +33,6 @@ function Indexer() {
     var number = instanceNumber - 1
     setComponents([<IndexerComponent />, components])
     setInstanceNumber(number)
-  }
-
-  function test() {
-    loginWithRedirect()
-    console.log(isAuthenticated);
   }
 
   return (
@@ -73,7 +68,7 @@ function Indexer() {
 
             <div className='loginForm'>
               <form action="">
-                  <button className="loginButton" onClick={() => test()}>
+                  <button className="loginButton" onClick={() => loginWithRedirect()}>
                   Login
                 </button>
               </form>
