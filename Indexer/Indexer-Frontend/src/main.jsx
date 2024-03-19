@@ -3,18 +3,12 @@ import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { FronteggProvider } from '@frontegg/react';
 
-// import Login from './Pages/Login/Login.jsx'
 import Indexer from './Pages/Indexer/Indexer.jsx'
 import Ongoing from './Pages/Ongoing/Ongoing.jsx'
 
 import './index.css'
 
 const router = createBrowserRouter([
-  // {
-  //   path: '/',
-  //   element: <Login />,
-  //   errorElement: <div>404 Not Found</div>
-  // },
   {
     path: '/',
     element: <Indexer />,
@@ -48,7 +42,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       contextOptions={contextOptions}
       hostedLoginBox={true}
       authOptions={authOptions}>
-    {/* <FronteggProvider contextOptions={contextOptions} hostedLoginBox={false} authOptions={authOptions}> */}
       <RouterProvider router={router} />
     </FronteggProvider>
   </React.StrictMode>,
