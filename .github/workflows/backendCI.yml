@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - "Migrating-indexing-pipeline/API_server/**"
+  workflow_dispatch:
 
 jobs:
   build-and-push:
