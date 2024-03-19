@@ -21,6 +21,11 @@ const router = createBrowserRouter([
     errorElement: <div>404 Not Found</div>
   },
   {
+    path: '/oauth/callback',
+    element: <Indexer />,
+    errorElement: <div>404 Not Found</div>
+  },
+  {
     path: '/ongoing',
     element: <Ongoing />,
     errorElement: <div>404 Not Found</div>
@@ -29,7 +34,8 @@ const router = createBrowserRouter([
 
 const contextOptions = {
   baseUrl: 'https://app-tgykkemfuyek.frontegg.com',
-  clientId: 'd6a206fe-eafe-44fe-97c3-b1143272124f'
+  clientId: 'd6a206fe-eafe-44fe-97c3-b1143272124f',
+  // redirectUri: ${window.location.origin}/call
 };
 
 const authOptions = {
