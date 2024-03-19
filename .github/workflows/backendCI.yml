@@ -27,4 +27,4 @@ jobs:
           context: ./Migrating-indexing-pipeline/API_server
           file: ./Migrating-indexing-pipeline/API_server/Dockerfile
           push: true
-          tags: <your-dockerhub-username>/<your-repo-name>:<your-image-tag>
+          tags: nickipan/indexer-service:latest
