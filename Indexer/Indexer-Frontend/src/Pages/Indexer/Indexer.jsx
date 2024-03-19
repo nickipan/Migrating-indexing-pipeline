@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import logo from '../../assets/Logo.png'
 import { useNavigate } from 'react-router-dom';
 
@@ -20,6 +20,7 @@ function Indexer() {
     setInstanceNumber(number)
   }
 
+ 
   return (
     <>
       <div>

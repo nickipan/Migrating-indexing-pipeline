@@ -5,7 +5,9 @@ import tempfile
 from functools import reduce
 from kubernetes import client, config
 from swagger_server.utils.JobControl import *
+from flask import request, jsonify
 
+auth = '3e2a7216-5c9b-4eb5-8745-b4dd5ce04d29'
 
 def transform_status(status):
     int_list = ['active', 'failed', 'succeeded', 'terminating']
@@ -28,25 +30,30 @@ def transform_status(status):
 
 
 def start(job=None):
-    k8s_jobs = JobControl()
-
-    args = [job.resource_type]
-    if job.resource_type_only is False:
-        args += ["-r", job.source_type]
-
-    container = k8s_jobs.create_container(job.name, args)
-    template = k8s_jobs.create_pod_template(job.name, container)
-    job_obj = k8s_jobs.create_job(job.name, template)
-
-    if job.periodic is True:
-        cronjob_obj = k8s_jobs.create_cronjob(job.name, job_obj, job.time_period)
-        raw_status = k8s_jobs.run_cronjob(cronjob_obj)
-        status = transform_status(raw_status)
+    token = request.headers.get('Authorization').split(' ')[1]  
+    
+    if(auth != token):
+        return jsonify({'authorized': False})
     else:
-        raw_status = k8s_jobs.run_job(job_obj)
-        status = transform_status(raw_status)
+        k8s_jobs = JobControl()
 
-    return status
+        args = [job.resource_type]
+        if job.resource_type_only is False:
+            args += ["-r", job.source_type]
+
+        container = k8s_jobs.create_container(job.name, args)
+        template = k8s_jobs.create_pod_template(job.name, container)
+        job_obj = k8s_jobs.create_job(job.name, template)
+
+        if job.periodic is True:
+            cronjob_obj = k8s_jobs.create_cronjob(job.name, job_obj, job.time_period)
+            raw_status = k8s_jobs.run_cronjob(cronjob_obj)
+            status = transform_status(raw_status)
+        else:
+            raw_status = k8s_jobs.run_job(job_obj)
+            status = transform_status(raw_status)
+
+        return status
 
 
 def list():

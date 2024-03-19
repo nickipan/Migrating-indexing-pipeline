@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import './Indexer.css'
 import { FaMinusCircle } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
@@ -7,6 +7,12 @@ import source from "./Data/Source/Source.json"
 import resource from "./Data/Resource/Resource.json"
 import periodic from "./Data/Periodic/Periodic.json"
 
+import { createClient} from '@supabase/supabase-js'
+
+const supabase = createClient(
+  "https://glswwzdfwzmbynmuuwhm.supabase.co",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdsc3d3emRmd3ptYnlubXV1d2htIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTA4ODI1ODQsImV4cCI6MjAyNjQ1ODU4NH0.V0Fs97rJCoA42jLIIIJ48Tp1nSUgktWvA5_cAhrNk3Q"
+)
 
 function IndexerComponent() {
   document.title = "KB-Indexer"
@@ -16,6 +22,8 @@ function IndexerComponent() {
   const [isPeriodic, setIsPeriodic] = useState(false)
   const [userID, setUserID] = useState('')
   const [status, setStatus] = useState('')
+  const [apiUserId, setApiUserId] = useState('')
+  const [authorized, isAuthorized] = useState(true)
   // ids
 
   const sourceID = "source" + userID
@@ -29,10 +37,14 @@ function IndexerComponent() {
   const [startTime, setStartTime] = useState('-')
   const [completed, setCompleted] = useState('No')
 
-  // "active": 1,
-  // "failed": 1,
-  // "succeeded": 1,
-  // "terminating": 1
+  useEffect(() => {
+      supabase.auth.getUser().then(({data : {user}}) => {
+        setApiUserId(user.id)
+
+        console.log(user.id)
+      })
+    }
+  )
 
   function isPressed() {
     setStartPressed(true);
@@ -126,7 +138,10 @@ function IndexerComponent() {
       "http://127.0.0.1:8080/indexer/1.0.0/jobs",
       {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', },
+        headers: { 
+          'Content-Type': 'application/json', 
+          'Authorization': `Bearer ${apiUserId}`, 
+        },
         body:JSON.stringify( 
           {
             "name": uID,
@@ -138,7 +153,13 @@ function IndexerComponent() {
           })
       }
     )
-    .then(response => {console.log(response)})
+    .then(response => response.json())
+    .then(data => {
+      console.log(data.authorized)
+      if(!data.authorized) {
+        isAuthorized(false)
+      }
+    })
   }
 
   return (
@@ -180,7 +201,14 @@ function IndexerComponent() {
         </button>
       }
 
-      {startPressed && notDeleted &&
+      {!authorized &&
+        <div className='authText'>
+          Not authorized!
+        </div>
+      }
+
+
+      {startPressed && notDeleted && authorized &&
         <div>
           <button className="refreshButton" onClick={refresh}>
             Refresh
@@ -196,7 +224,7 @@ function IndexerComponent() {
           </button>
         </div>
       }
-      {startPressed && !notDeleted &&
+      {startPressed && !notDeleted && authorized &&
         <div>
           <p className="deleteText">
             <MdDelete className='deleteIcon' />
