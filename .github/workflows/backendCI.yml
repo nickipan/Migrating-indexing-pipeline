@@ -25,7 +25,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
-          context: ../../API_server
-          file: ../../API_server/Dockerfile
+          context: ./API_server
+          file: ./API_server/Dockerfile
           push: true
           tags: nickipan/indexer-service:latest
