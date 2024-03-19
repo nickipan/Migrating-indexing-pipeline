@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import logo from '../../assets/Logo.png'
 import { useNavigate} from 'react-router-dom';
 
@@ -14,18 +14,6 @@ function Indexer() {
   const [instanceNumber, setInstanceNumber] = useState(1);
   const { user, isAuthenticated } = useAuth();
   const loginWithRedirect = useLoginWithRedirect();
-
-  // Uncomment this to redirect to login automatically
-  useEffect(() => {
-    if (!isAuthenticated) {
-      loginWithRedirect();
-    }
-  }, [isAuthenticated, loginWithRedirect]);
-
-  const logout = () => {
-    const baseUrl = ContextHolder.getContext().baseUrl;
-    window.location.href = `${baseUrl}/oauth/logout?post_logout_redirect_uri=${window.location}`;
-  };
 
   let navigate = useNavigate();
 
