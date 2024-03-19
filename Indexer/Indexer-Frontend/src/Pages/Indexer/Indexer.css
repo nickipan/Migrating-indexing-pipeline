@@ -205,3 +205,39 @@
 .read-the-docs {
   color: #888;
 }
+
+.logo:hover {
+  filter: drop-shadow(0 0 0em #646cffaa);
+}
+
+.logo.react:hover {
+  filter: drop-shadow(0 0 0em #61dafbaa);
+}
+
+.text {
+  font-size: 17px;
+  font-weight: 350;
+  margin-top: -30px;
+  margin-bottom: 20px;
+}
+
+.loginForm .loginButton {
+  color: white;
+  position: relative;
+  padding: 0.75em 7em 0.75em 5em;
+  width: 10px;
+  margin-top: 1.3em;
+  border-radius: 5px;
+  border: 1px solid transparent;
+  font-size: 0.7em;
+  font-weight: 00;
+  font-family: inherit;
+  background-color: #8a979e;
+  cursor: pointer;
+  transition: border-color 0.25s;
+  transform: translate(0%, -10%);
+}
+
+.loginForm .loginButton:hover {
+  border-color: #646cff;
+}
