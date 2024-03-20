@@ -42,21 +42,15 @@ read new_hostname
 # Define the YAML file path
 echo "Please enter the path to the YAML file:"
 read yaml_file_path
-yaml_file="$yaml_file_path/kms_helm_values.yaml"
 
 # Use sed to replace the placeholder with the user-provided hostname
 if [[ "$OSTYPE" == "darwin"* ]]; then
     # macOS requires an empty string as an argument to -i
-    sed -i '' "s/HOSTNAME_PLACEHOLDER/$new_hostname/g" "$yaml_file"
     sed -i '' "s/INGRESS_PLACEHOLDER/$new_hostname/g" "ingress.yaml"
 else
     # Linux systems do not require an empty string
-    sed -i "s/HOSTNAME_PLACEHOLDER/$new_hostname/g" "$yaml_file"
     sed -i "s/INGRESS_PLACEHOLDER/$new_hostname/g" "ingress.yaml"
 fi
-
-# Deploy the indexer
-helm -n kms upgrade --install --create-namespace kms ./KMS-generic-helm-charts/ -f ./kms_helm_values.yaml
 
 # Deploy the backend
 kubectl -n kms apply -f job_service.yaml

@@ -27,9 +27,9 @@ class JobControl:
     def create_container(name, args):
 
         env = [client.V1EnvVar(name="DATA_DIR", value="/app/data"),
-               client.V1EnvVar(name="ELASTICSEARCH_HOST", value="http://kms-elasticsearch:9200/"),
-               client.V1EnvVar(name="ELASTICSEARCH_USERNAME", value="elastic"),
-               client.V1EnvVar(name="ELASTICSEARCH_PASSWORD", value="my_es_password"),
+               client.V1EnvVar(name="ELASTICSEARCH_HOST", value="https://search-trial-wzgih6nnt3zdj4g5rcymfqxtuy.aos.eu-west-2.on.aws"),
+               client.V1EnvVar(name="ELASTICSEARCH_USERNAME", value="masteruser"),
+               client.V1EnvVar(name="ELASTICSEARCH_PASSWORD", value="Master_devops1234"),
                client.V1EnvVar(name="KAGGLE_USERNAME", value="norasilven"),
                client.V1EnvVar(name="KAGGLE_KEY", value="ac7ddd5e827b32ba94901f5f66a17094"),
                client.V1EnvVar(name="GITHUB_API_TOKEN", value="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")]
