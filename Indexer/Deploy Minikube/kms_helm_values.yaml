@@ -19,7 +19,7 @@ elasticsearch:
       nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
       nginx.ingress.kubernetes.io/rewrite-target: /$2
       nginx.ingress.kubernetes.io/add-base-url: "true"
-    hostname: a3457ea29e0d1488d80738b6adf46a55-1546710775.eu-west-2.elb.amazonaws.com
+    hostname: HOSTNAME_PLACEHOLDER
     path: /es(/|$)(.*)
     tls: true
 
@@ -57,7 +57,7 @@ kms_generic:
   security:
     secret_key: "my_django_secret"
     allowed_hosts: "*"
-    csrf_trusted_origins: "http://a3457ea29e0d1488d80738b6adf46a55-1546710775.eu-west-2.elb.amazonaws.com"
+    csrf_trusted_origins: "http://HOSTNAME_PLACEHOLDER"
 
   base_path: 'kms'
   ingress:
@@ -65,7 +65,7 @@ kms_generic:
     className: "nginx"  
     annotations: {}
     hosts:
-      - host: a3457ea29e0d1488d80738b6adf46a55-1546710775.eu-west-2.elb.amazonaws.com
+      - host: HOSTNAME_PLACEHOLDER
         paths:
           - path: /kms/
             pathType: Prefix
