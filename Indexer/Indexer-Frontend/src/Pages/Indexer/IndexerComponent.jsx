@@ -155,8 +155,9 @@ function IndexerComponent() {
     )
     .then(response => response.json())
     .then(data => {
+      console.log(data)
       console.log(data.authorized)
-      if(!data.authorized) {
+      if(data.authorized == false) {
         isAuthorized(false)
       }
     })
@@ -201,13 +202,6 @@ function IndexerComponent() {
         </button>
       }
 
-      {!authorized &&
-        <div className='authText'>
-          Not authorized!
-        </div>
-      }
-
-
       {startPressed && notDeleted && authorized &&
         <div>
           <button className="refreshButton" onClick={refresh}>
@@ -232,6 +226,13 @@ function IndexerComponent() {
           </p>
         </div>
       }
+      
+      {authorized == false &&
+        <div className='authText'>
+          Not authorized!
+        </div>
+      }
+
     </>
   )
 }
