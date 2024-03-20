@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import logo from '../../assets/Logo.png'
 import { useNavigate} from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 
 import './Indexer.css'
 import IndexerComponent from './IndexerComponent'
@@ -61,6 +62,12 @@ function Indexer() {
                 </button>
               </form>
             </div>
+              <div>
+                {/* <Link to="/">Open Settings route</Link> */}
+            </div>
+              <div>
+                <Outlet> </Outlet>
+              </div>
           </>
         </>
       )}
