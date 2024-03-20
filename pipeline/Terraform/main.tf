@@ -42,11 +42,9 @@ module "eks" {
     vpc-cni = {
       most_recent = true
     }
-
-    ingress-nginx = {
-      most_recent = true
-    }
   }
+
+
 
   vpc_id     = module.vpc.vpc_id
   subnet_ids = module.vpc.public_subnets
