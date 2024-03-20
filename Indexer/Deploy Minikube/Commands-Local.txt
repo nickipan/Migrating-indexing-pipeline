@@ -1,6 +1,6 @@
 -- Minikube commands
 minikube start --addons=ingress,ingress-dns --cpus=4 -p kms-test
-helm -n kms upgrade --install --create-namespace kms ./KMS/ -f ./kms_helm_values.yaml
+helm -n kms upgrade --install --create-namespace kms ./KMS-generic-helm-charts/ -f ./kms_helm_values.yaml
 kubectl apply -f job_service.yaml -n kms
 kubectl create serviceaccount index-api --namespace default
 
