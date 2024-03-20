@@ -63,7 +63,7 @@ function Indexer() {
               </form>
             </div>
               <div>
-                {/* <Link to="/">Open Settings route</Link> */}
+                <Link to="/">Open Settings route</Link>
             </div>
               <div>
                 <Outlet> </Outlet>
