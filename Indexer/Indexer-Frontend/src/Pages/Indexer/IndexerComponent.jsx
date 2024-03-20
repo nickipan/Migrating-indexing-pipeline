@@ -79,7 +79,7 @@ function IndexerComponent() {
   // API calls
   // Refresh API call
   function refresh() {
-    const endpoint = 'http://127.0.0.1:8080/indexer/1.0.0/job/' + userID + '/' + isPeriodic
+    const endpoint = 'http://a2924d0f7579146559e579faa288e275-1667556836.eu-west-2.elb.amazonaws.com/indexer/1.0.0/job/' + userID + '/' + isPeriodic
     fetch(endpoint)
       .then(response => response.json())
       .then(data => {
@@ -106,7 +106,7 @@ function IndexerComponent() {
 
   // Delete instance
   function deleteData() {
-    const endpoint = 'http://127.0.0.1:8080/indexer/1.0.0/job/' + userID + '/' + isPeriodic
+    const endpoint = 'http://a2924d0f7579146559e579faa288e275-1667556836.eu-west-2.elb.amazonaws.com/indexer/1.0.0/job/' + userID + '/' + isPeriodic
     fetch(endpoint,
       {
         method: 'DELETE',
@@ -135,7 +135,7 @@ function IndexerComponent() {
     setIsPeriodic(isPeriodic)
 
     const res = fetch(
-      "http://127.0.0.1:8080/indexer/1.0.0/jobs",
+      "http://a2924d0f7579146559e579faa288e275-1667556836.eu-west-2.elb.amazonaws.com/indexer/1.0.0/jobs",
       {
         method: 'POST',
         headers: { 
