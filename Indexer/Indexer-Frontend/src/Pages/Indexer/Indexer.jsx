@@ -2,6 +2,7 @@ import { useState } from 'react'
 import logo from '../../assets/Logo.png'
 import { useNavigate} from 'react-router-dom';
 import { Link, Outlet } from 'react-router-dom';
+// import { useEffect } from 'react';
 
 import './Indexer.css'
 import IndexerComponent from './IndexerComponent'
@@ -17,6 +18,13 @@ function Indexer() {
   const loginWithRedirect = useLoginWithRedirect();
 
   let navigate = useNavigate();
+
+  // Uncomment this to redirect to login automatically
+  // useEffect(() => {
+  //   if (!isAuthenticated) {
+  //     loginWithRedirect();
+  //   }
+  // }, [isAuthenticated, loginWithRedirect]);
 
   function addJob() {
     var number = instanceNumber - 1
@@ -57,13 +65,11 @@ function Indexer() {
 
             <div className='loginForm'>
               <form action="">
-                  <button className="loginButton" onClick={() => loginWithRedirect()}>
-                  Login
-                </button>
+                  <Link to={"/"} onClick={() => loginWithRedirect()} >Login</Link>
+                  {/* <button className="loginButton" onClick={() => loginWithRedirect()}> */}
+                  {/* Login
+                </button> */}
               </form>
-            </div>
-              <div>
-                <Link to="/">Open Settings route</Link>
             </div>
               <div>
                 <Outlet> </Outlet>
