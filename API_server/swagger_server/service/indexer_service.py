@@ -36,7 +36,7 @@ def start(job=None):
         return jsonify({'authorized': False})
     else:
         k8s_jobs = JobControl()
-
+        print("reached")
         args = [job.resource_type]
         if job.resource_type_only is False:
             args += ["-r", job.source_type]
@@ -44,7 +44,7 @@ def start(job=None):
         container = k8s_jobs.create_container(job.name, args)
         template = k8s_jobs.create_pod_template(job.name, container)
         job_obj = k8s_jobs.create_job(job.name, template)
-
+        print("reached2")
         if job.periodic is True:
             cronjob_obj = k8s_jobs.create_cronjob(job.name, job_obj, job.time_period)
             raw_status = k8s_jobs.run_cronjob(cronjob_obj)
@@ -52,7 +52,7 @@ def start(job=None):
         else:
             raw_status = k8s_jobs.run_job(job_obj)
             status = transform_status(raw_status)
-
+        print("reached3")
         return status
 
 
