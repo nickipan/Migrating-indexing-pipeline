@@ -7,7 +7,7 @@ from kubernetes import client, config
 from swagger_server.utils.JobControl import *
 from flask import request, jsonify
 
-auth = '3e2a7216-5c9b-4eb5-8745-b4dd5ce04d29'
+auth = 'b66614d4-58f2-43d9-9bd6-f04b03e48646'
 
 def transform_status(status):
     int_list = ['active', 'failed', 'succeeded', 'terminating']
