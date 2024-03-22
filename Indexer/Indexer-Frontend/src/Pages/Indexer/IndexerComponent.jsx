@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./Indexer.css";
 import { FaMinusCircle } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
@@ -20,12 +20,12 @@ function IndexerComponent() {
   const [sourceTypes, setSourceTypes] = useState(source.web);
   const [notDeleted, setnotDeleted] = useState(true);
   const [isPeriodic, setIsPeriodic] = useState(false);
-  const [userID, setUserID] = useState("");
   const [status, setStatus] = useState("");
   const [apiUserId, setApiUserId] = useState("");
   const [authorized, isAuthorized] = useState(true);
-  // ids
 
+  // All ID's
+  const [userID, setUserID] = useState("");
   const sourceID = "source" + userID;
   const resourceID = "recourse" + userID;
   const periodID = "period" + userID;
@@ -40,8 +40,6 @@ function IndexerComponent() {
   useEffect(() => {
     supabase.auth.getUser().then(({ data: { user } }) => {
       setApiUserId(user.id);
-
-      console.log(user.id);
     });
   });
 
@@ -76,7 +74,7 @@ function IndexerComponent() {
   };
 
   // API calls
-  // Refresh API call
+  // Refresh the job Status
   function refresh() {
     const endpoint = "/api/indexer/1.0.0/job/" + userID + "/" + isPeriodic;
     fetch(endpoint)
@@ -91,16 +89,16 @@ function IndexerComponent() {
         } else {
           setStatus("Failed");
         }
-        console.log(data);
+
         setCompletionTime(data.completionTime),
           setStartTime(data.startTime),
           setCompleted(JSON.stringify(data.completed));
       });
 
-    console.log(status);
+
   }
 
-  // Delete instance
+  // Delete a job
   function deleteData() {
     const endpoint = "/api/indexer/1.0.0/job/" + userID + "/" + isPeriodic;
     fetch(endpoint, {
@@ -115,7 +113,7 @@ function IndexerComponent() {
     });
   }
 
-  // Send data API call
+  // Send data to start indexing job
   const sendData = async () => {
     var source = document.getElementById(sourceID).value;
     var resource = document.getElementById(resourceID).value;
@@ -144,8 +142,6 @@ function IndexerComponent() {
     })
       .then(response => response.json())
       .then(data => {
-        console.log(data);
-        console.log(data.authorized);
         if (data.authorized == false) {
           isAuthorized(false);
         }
@@ -186,13 +182,14 @@ function IndexerComponent() {
           ))}
         </select>
       </div>
-      {/* Start Button */}
+      {/* Start indexing button */}
       {!startPressed && (
-        <button className="startButton" onClick={isPressed}>
+        <button className="startButton" onClick={isPressed} id={"startButton"}>
           Start Indexing
         </button>
       )}
 
+      {/* Job is running */}
       {startPressed && notDeleted && authorized && (
         <div>
           <button className="refreshButton" onClick={refresh}>
@@ -209,6 +206,8 @@ function IndexerComponent() {
           </button>
         </div>
       )}
+
+      {/* Job is Deleted */}
       {startPressed && !notDeleted && authorized && (
         <div>
           <p className="deleteText">

@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom';
-import logo from '../../assets/Logo.png'
+import { useNavigate } from 'react-router-dom'
+import logo from '../../Assets/Logo.png'
 import './Login.css'
-
 import { createClient} from '@supabase/supabase-js'
 import { Auth } from '@supabase/auth-ui-react'
 
@@ -19,7 +18,7 @@ function Login() {
 
       supabase.auth.onAuthStateChange(async (event) => {
         if (event == "SIGNED_IN"){
-            navigate("/indexerui")
+            navigate("/indexerui");
         }
       })
     }
@@ -37,14 +36,6 @@ function Login() {
         theme='dark'
         providers={['github']}
       />
-
-      {/* <div className='loginForm'>
-        <form action="">
-          <button className="loginButton">
-            Login
-          </button>
-        </form>
-      </div> */}
     </>
   )
 }

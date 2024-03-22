@@ -1,11 +1,9 @@
-import { useState, useEffect } from 'react'
-import logo from '../../assets/Logo.png'
+import { useState } from 'react'
+import logo from '../../Assets/Logo.png'
 import { useNavigate } from 'react-router-dom';
-
 import './Indexer.css'
 import IndexerComponent from './IndexerComponent'
 import { FaPlusCircle } from "react-icons/fa";
-
 
 function Indexer() {
   document.title = "KB-Indexer"
@@ -14,13 +12,13 @@ function Indexer() {
 
   let navigate = useNavigate();
 
+  // Add a new job that can be run to list of jobs
   function addJob() {
     var number = instanceNumber -1
     setComponents([<IndexerComponent/>, components])
     setInstanceNumber(number)
   }
 
- 
   return (
     <>
       <div>
