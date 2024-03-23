@@ -2,8 +2,6 @@ name: Build and Push Docker image
 
 on:
   push:
-    paths:
-      - "Migrating-indexing-pipeline/API_server/**"
   workflow_dispatch:
 
 jobs:
