@@ -96,6 +96,7 @@
   transition: border-color 0.25s;
   transform: translate(260%, -590%);
 }
+
 .deleteButton {
   color: white;
   display: flex;
@@ -187,7 +188,6 @@
   transform: translate(100%, -500%);
   margin-bottom: -2em;
 }
-
 
 .progressNumber {
   display: flex;
