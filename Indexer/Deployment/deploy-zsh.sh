@@ -56,7 +56,7 @@ else
 fi
 
 # Deploy the indexer
-helm -n kms upgrade --install --create-namespace kms ./KMS-generic-helm-charts/ -f ./kms_helm_values.yaml --set persistence.enabled=false
+helm -n kms upgrade --install --create-namespace kms ./KMS-generic-helm-charts/ -f ./kms_helm_values.yaml
 
 # Deploy the backend
 kubectl -n kms apply -f job_service.yaml
