@@ -1,13 +1,16 @@
 from functools import reduce
 
 import os
+from dotenv import load_dotenv
 import tempfile
 from functools import reduce
 from kubernetes import client, config
 from swagger_server.utils.JobControl import *
 from flask import request, jsonify
 
-auth = ''
+load_dotenv()
+
+auth = os.getenv('GITHUB_TOKEN')
 
 def transform_status(status):
     int_list = ['active', 'failed', 'succeeded', 'terminating']
